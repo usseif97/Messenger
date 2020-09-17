@@ -1,4 +1,5 @@
 import 'package:chat_app/models/contactModel.dart';
+import 'package:chat_app/providers/theme_provider.dart';
 import 'package:chat_app/screens/users_screen.dart';
 import 'package:chat_app/widgets/contacts/contacts.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   List<ContactModel> contactsList = [];
   dynamic currentUserInfo;
+
+  ThemeProvider themeProvider;
 
   @override
   void initState() {
@@ -85,6 +88,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
     }
   }
 
+  void selectMode(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed('/mode');
+  }
+
   void _contactsList() async {
     print('_mastersList Function');
 
@@ -131,18 +138,18 @@ class _ContactsScreenState extends State<ContactsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.themeProvider.getColor(),
         iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
+            //color: Colors.black,
+            ),
         title: Text(
           'Chats',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 35,
-            color: Colors.black,
+            //color: Colors.black,
           ),
         ),
         actions: <Widget>[
@@ -152,11 +159,14 @@ class _ContactsScreenState extends State<ContactsScreen> {
             ),
             margin: const EdgeInsets.all(8),
           ),
-          Container(
-            child: Icon(
-              Icons.edit,
+          GestureDetector(
+            child: Container(
+              child: Icon(
+                Icons.edit,
+              ),
+              margin: const EdgeInsets.all(8),
             ),
-            margin: const EdgeInsets.all(8),
+            onTap: () => selectMode(context),
           ),
           GestureDetector(
             child: Container(
@@ -191,24 +201,24 @@ class _ContactsScreenState extends State<ContactsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Colors.grey[100],
-                ),
+                    //color: Colors.grey[100],
+                    ),
                 borderRadius: BorderRadius.all(
                   Radius.circular(25),
                 ),
-                color: Colors.grey[100],
+                //color: Colors.grey[100],
               ),
               child: TextField(
                 decoration: InputDecoration(
                   prefix: Icon(
                     Icons.search,
-                    color: Colors.black,
+                    //color: Colors.black,
                   ),
                   hintText: 'Search',
-                  hintStyle: TextStyle(color: Colors.black),
+                  //hintStyle: TextStyle(color: Colors.black),
                   border: InputBorder.none,
                 ),
-                style: TextStyle(color: Colors.black),
+                //style: TextStyle(color: Colors.black),
               ),
             ),
             Container(
@@ -240,7 +250,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
             backgroundColor: Colors.grey[100],
             child: Icon(
               Icons.add,
-              color: Colors.black,
+              //color: Colors.black,
             ),
           ),
           SizedBox(
@@ -248,7 +258,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
           ),
           Text(
             "Your Story",
-            style: TextStyle(color: Colors.black),
+            //style: TextStyle(color: Colors.black),
           )
         ],
       ),

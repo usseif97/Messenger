@@ -1,5 +1,6 @@
 import 'package:chat_app/widgets/contacts/contacts.dart';
 import 'package:chat_app/widgets/contacts/users.dart';
+import 'package:chat_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +16,8 @@ class _UsersScreenState extends State<UsersScreen> {
   final _auth = FirebaseAuth.instance;
   dynamic _userImage;
   String userID = '';
+
+  ThemeProvider themeProvider;
 
   @override
   void initState() {
@@ -62,21 +65,25 @@ class _UsersScreenState extends State<UsersScreen> {
     }
   }
 
+  void selectMode(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed('/mode');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
+            //color: Colors.black,
+            ),
         title: Text(
           'Chats',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 35,
-            color: Colors.black,
+            //color: Colors.black,
           ),
         ),
         actions: <Widget>[
@@ -86,11 +93,14 @@ class _UsersScreenState extends State<UsersScreen> {
             ),
             margin: const EdgeInsets.all(8),
           ),
-          Container(
-            child: Icon(
-              Icons.edit,
+          GestureDetector(
+            child: Container(
+              child: Icon(
+                Icons.edit,
+              ),
+              margin: const EdgeInsets.all(8),
             ),
-            margin: const EdgeInsets.all(8),
+            onTap: () => selectMode(context),
           ),
           GestureDetector(
             child: Container(

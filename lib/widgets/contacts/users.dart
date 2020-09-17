@@ -194,7 +194,7 @@ class _UsersState extends State<Users> {
             documents[i]['username'],
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              //color: Colors.black,
               fontSize: 25,
             ),
           ),
@@ -202,12 +202,12 @@ class _UsersState extends State<Users> {
               ? checkFriend(documents[i]['id']) == true
                   ? Icon(
                       Icons.person_pin,
-                      color: Colors.black,
+                      //color: Colors.black,
                     )
                   : GestureDetector(
                       child: Icon(
                         Icons.person_add,
-                        color: Colors.black,
+                        //color: Colors.black,
                       ),
                       onTap: () {
                         addFriend(i, documents);

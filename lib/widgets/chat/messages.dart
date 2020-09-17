@@ -1,4 +1,5 @@
 import 'package:chat_app/models/chatModel.dart';
+import 'package:chat_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 
@@ -10,13 +11,15 @@ class Messages extends StatelessWidget {
 
   const Messages(this.chatsList, this.friendImage);
 
+  //final ThemeProvider themeProvider = null;
+
   @override
   Widget build(BuildContext context) {
     return chatsList.length == 0
         ? Center(
             child: Text(
               'No Messages',
-              style: TextStyle(color: Colors.black),
+              //style: TextStyle(color: Colors.black),
             ),
           )
         : ListView.builder(
@@ -36,13 +39,6 @@ class Messages extends StatelessWidget {
     );
   }
 
-  /*Container(
-          margin: const EdgeInsets.all(5),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(routeArgs['contact'].userImage),
-          ),
-        ),*/
-
   Row messageBubbleItem(int i, List<ChatModel> documents, BuildContext ctx) {
     return Row(
       mainAxisAlignment: documents[i].send == '1'
@@ -56,7 +52,10 @@ class Messages extends StatelessWidget {
                   backgroundImage: NetworkImage(friendImage),
                 ),
               )
-            : Text('.'),
+            : Text(
+                '.',
+                style: TextStyle(color: Colors.transparent),
+              ),
         Container(
           decoration: BoxDecoration(
             color: documents[i].send == '1' ? Colors.blue : Colors.grey,
@@ -76,7 +75,8 @@ class Messages extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           child: Text(
             documents[i].message,
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(
+                color: documents[i].send == '1' ? Colors.white : Colors.black),
           ),
         ),
       ],

@@ -27,7 +27,7 @@ class Contacts extends StatelessWidget {
         ? Center(
             child: Text(
               'No Friends',
-              style: TextStyle(color: Colors.black),
+              //style: TextStyle(color: Colors.black),
             ),
           )
         : ListView.builder(
@@ -52,12 +52,12 @@ class Contacts extends StatelessWidget {
                 documents[i].username,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  //color: Colors.black,
                 ),
               ),
               subtitle: Text(
                 documents[i].chat,
-                style: TextStyle(color: Colors.grey),
+                //style: TextStyle(color: Colors.grey),
               ),
             ),
           ),
@@ -78,7 +78,7 @@ class Contacts extends StatelessWidget {
                   width: 20,
                   height: 20,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
+                    //color: Colors.grey,
                     shape: BoxShape.circle,
                     border: Border.all(width: 3, color: Colors.white),
                   ),

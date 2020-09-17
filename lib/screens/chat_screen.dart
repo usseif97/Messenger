@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:chat_app/models/chatModel.dart';
 import 'package:chat_app/models/contactModel.dart';
+import 'package:chat_app/providers/theme_provider.dart';
 import 'package:chat_app/widgets/chat/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,6 +26,8 @@ class _ChatScreenState extends State<ChatScreen> {
   var routeArgs;
 
   List<ChatModel> chatList = [];
+
+  ThemeProvider themeProvider;
 
   final textController = TextEditingController();
 
@@ -229,18 +232,18 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
+            //color: Colors.black,
+            ),
         title: Text(
           routeArgs['contact'].username,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            //color: Colors.black,
           ),
         ),
         actions: <Widget>[
@@ -292,15 +295,15 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xffF4F5FA),
+                //color: Colors.grey[400],
                 borderRadius: BorderRadius.circular(30),
               ),
               child: TextField(
                 decoration: InputDecoration.collapsed(
                   hintText: "Aa",
-                  hintStyle: TextStyle(color: Colors.black),
+                  //hintStyle: TextStyle(color: Colors.black),
                 ),
-                style: TextStyle(color: Colors.black),
+                //style: TextStyle(color: Colors.black),
                 controller: textController,
               ),
             ),

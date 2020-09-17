@@ -41,7 +41,7 @@ class ThemeProvider with ChangeNotifier {
   ThemeData themeData(BuildContext context) {
     return ThemeData(
       primarySwatch: isLightTheme ? Colors.blue : Colors.grey,
-      primaryColor: isLightTheme ? Colors.blue : Color(0xFF1E1F28),
+      primaryColor: isLightTheme ? Colors.white : Color(0xFF1E1F28),
       brightness: isLightTheme ? Brightness.light : Brightness.dark,
       backgroundColor: isLightTheme ? Color(0xFFFFFFFF) : Color(0xFF26242e),
       buttonTheme: ButtonTheme.of(context).copyWith(

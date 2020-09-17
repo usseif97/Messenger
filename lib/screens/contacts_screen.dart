@@ -91,6 +91,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
     final FirebaseUser user = await _auth.currentUser();
     String uid = user.uid;
 
+    setState(() {
+      contactsList = [];
+    });
+
     QuerySnapshot querySnapshot =
         await Firestore.instance.collection("contacts").getDocuments();
 
@@ -104,6 +108,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
             .collection("contacts")
             .document(listOfMasters[i].documentID.toString())
             .collection("friends")
+            .orderBy('date', descending: true)
             .snapshots()
             .listen(_createListofcontacts);
       }

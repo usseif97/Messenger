@@ -25,7 +25,6 @@ class _UsersState extends State<Users> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //_usersList(); // to
     _getFriends(); // Get the current user info then Render my Friends
   }
 
@@ -151,38 +150,6 @@ class _UsersState extends State<Users> {
         finished = true;
       });
     }
-  }
-
-  void _usersList() async {
-    print('_mastersList Function');
-    usersList = [];
-
-    final FirebaseUser user = await _auth.currentUser();
-    String uid = user.uid;
-
-    QuerySnapshot querySnapshot =
-        await Firestore.instance.collection("users").getDocuments();
-
-    List listOfMasters = querySnapshot.documents;
-
-    //print('listOfMasters.length: ${listOfMasters.length}');
-
-    for (int i = 0; i < listOfMasters.length; i++) {
-      if (listOfMasters[i].documentID.toString() == uid) {
-        Firestore.instance
-            .collection("users")
-            .snapshots()
-            .listen(_createListofusers);
-      }
-    }
-  }
-
-  void _createListofusers(QuerySnapshot snapshot) async {
-    var docs = snapshot.documents;
-    for (var Doc in docs) {
-      usersList.add(UserModel.fromFireStore(Doc));
-    }
-    print('usersList.length: ${usersList.length}');
   }
 
   @override

@@ -127,6 +127,37 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch (error) {
       print(error.toString());
     }
+
+    // Update Contacts Screen Info
+    try {
+      await Firestore.instance
+          .collection('contacts')
+          .document(uid)
+          .collection('friends')
+          .document(routeArgs['contact'].id)
+          .updateData({
+        'date': DateTime.now().toString(),
+        'chat': message,
+      });
+      print('done');
+    } catch (e) {
+      print(e.toString());
+    }
+    try {
+      await Firestore.instance
+          .collection('contacts')
+          .document(routeArgs['contact'].id)
+          .collection('friends')
+          .document(uid)
+          .updateData({
+        'date': DateTime.now().toString(),
+        'chat': message,
+      });
+      print('done');
+    } catch (e) {
+      print(e.toString());
+    }
+
     textController.clear();
     _chatList();
   }
@@ -244,55 +275,6 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
-      /*bottomSheet: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 5,
-        ),
-        width: MediaQuery.of(context).size.width,
-        //decoration: BoxDecoration(color: Colors.white),
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: 5,
-          ),
-          decoration: BoxDecoration(
-            color: Color(0xffF4F5FA),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: Color(0xffe7e7ef),
-                ),
-                child: Image.asset(
-                  "assets/images/messenger.png",
-                  width: 40,
-                  height: 40,
-                ),
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration.collapsed(
-                    hintText: "Aa",
-                    hintStyle: TextStyle(color: Colors.black),
-                  ),
-                  style: TextStyle(color: Colors.black),
-                  controller: textController,
-                ),
-              ),
-              IconButton(
-                icon: Icon(Icons.send),
-                color: Colors.blue,
-                onPressed: () => _sendMessage(textController.text),
-              ),
-            ],
-          ),
-        ),
-      ),*/
     );
   }
 

@@ -23,7 +23,6 @@ class _UsersState extends State<Users> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getFriends(); // Get the current user info then Render my Friends
   }
@@ -236,7 +235,6 @@ class _UsersState extends State<Users> {
             documents[i]['username'],
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              //color: Colors.black,
               fontSize: 25,
             ),
           ),
@@ -244,18 +242,16 @@ class _UsersState extends State<Users> {
               ? checkFriend(documents[i]['id']) == true
                   ? Icon(
                       Icons.person_pin,
-                      //color: Colors.black,
                     )
                   : GestureDetector(
                       child: Icon(
                         Icons.person_add,
-                        //color: Colors.black,
                       ),
                       onTap: () {
                         addFriend(i, documents);
                       },
                     )
-              : Icon(Icons.timer_3)),
+              : Icon(Icons.av_timer)),
     );
   }
 }

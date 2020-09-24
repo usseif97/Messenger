@@ -1,6 +1,5 @@
 import 'package:chat_app/models/contactModel.dart';
 import 'package:chat_app/providers/theme_provider.dart';
-import 'package:chat_app/screens/users_screen.dart';
 import 'package:chat_app/widgets/contacts/contacts.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,7 +26,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getData();
     _contactsList();
@@ -75,8 +73,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
   }
 
   void _logOut() async {
-    //final FirebaseUser user = await _auth.currentUser();
-    //String uid = user.uid;
     print('uid: $userID');
     try {
       await Firestore.instance
@@ -95,9 +91,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   void _contactsList() async {
     print('_mastersList Function');
-
-    //final FirebaseUser user = await _auth.currentUser();
-    //String uid = user.uid;
 
     /*setState(() {
       finished = false;
@@ -126,9 +119,11 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   void _createListofcontacts(QuerySnapshot snapshot) async {
     var docs = snapshot.documents;
-    setState(() {
-      contactsList.clear();
-    });
+    if (!_disposed) {
+      setState(() {
+        contactsList.clear();
+      });
+    }
     for (var Doc in docs) {
       contactsList.add(ContactModel.fromFireStore(Doc));
     }
@@ -143,18 +138,13 @@ class _ContactsScreenState extends State<ContactsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
       appBar: AppBar(
-        //backgroundColor: Colors.themeProvider.getColor(),
-        iconTheme: IconThemeData(
-            //color: Colors.black,
-            ),
+        iconTheme: IconThemeData(),
         title: Text(
           'Chats',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 35,
-            //color: Colors.black,
           ),
         ),
         actions: <Widget>[
@@ -211,7 +201,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 borderRadius: BorderRadius.all(
                   Radius.circular(25),
                 ),
-                //color: Colors.grey[100],
               ),
               child: TextField(
                 decoration: InputDecoration(
@@ -219,10 +208,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     Icons.search,
                   ),
                   hintText: 'Search',
-                  //hintStyle: TextStyle(color: Colors.black),
                   border: InputBorder.none,
                 ),
-                //style: TextStyle(color: Colors.black),
               ),
             ),
             Container(
@@ -254,7 +241,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
             backgroundColor: Colors.grey[100],
             child: Icon(
               Icons.add,
-              //color: Colors.black,
             ),
           ),
           SizedBox(
@@ -262,7 +248,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
           ),
           Text(
             "Your Story",
-            //style: TextStyle(color: Colors.black),
           )
         ],
       ),

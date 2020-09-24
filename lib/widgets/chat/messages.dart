@@ -1,17 +1,12 @@
 import 'package:chat_app/models/chatModel.dart';
-import 'package:chat_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Messages extends StatelessWidget {
   final List<ChatModel> chatsList;
   final String friendImage;
 
   const Messages(this.chatsList, this.friendImage);
-
-  //final ThemeProvider themeProvider = null;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +15,6 @@ class Messages extends StatelessWidget {
             child: Text(
               'No Messages',
               style: TextStyle(color: Colors.transparent),
-              //style: TextStyle(color: Colors.black),
             ),
           )
         : ListView.builder(

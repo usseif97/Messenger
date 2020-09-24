@@ -1,5 +1,4 @@
 import 'package:chat_app/models/contactModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 
@@ -20,14 +19,11 @@ class Contacts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //print('contactsList[0]: ${contactsList[0].userImage}');
-
     print('userid: $userid');
     return contactsList.length == 0
         ? Center(
             child: Text(
               'No Friends',
-              //style: TextStyle(color: Colors.black),
             ),
           )
         : ListView.builder(
@@ -52,7 +48,6 @@ class Contacts extends StatelessWidget {
                 documents[i].username,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  //color: Colors.black,
                 ),
               ),
               subtitle: Container(

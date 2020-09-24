@@ -54,10 +54,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _sendMessage(String message) async {
     print('send Message');
-    setState(() {
+    /*setState(() {
       finished = false;
       chatList = [];
-    });
+    });*/
+    finished = false;
+    chatList = [];
 
     final FirebaseUser user = await _auth.currentUser();
     String uid = user.uid;
@@ -146,6 +148,7 @@ class _ChatScreenState extends State<ChatScreen> {
     });*/
     /*finished = false;
     chatList.clear();*/
+    chatList = [];
 
     QuerySnapshot querySnapshot =
         await Firestore.instance.collection("chat").getDocuments();
@@ -182,6 +185,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _createListofchats(QuerySnapshot snapshot) async {
     var docs = snapshot.documents;
+    chatList = [];
     for (var Doc in docs) {
       chatList.add(ChatModel.fromFireStore(Doc));
     }
@@ -196,18 +200,13 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
       appBar: AppBar(
-        //backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-            //color: Colors.black,
-            ),
+        iconTheme: IconThemeData(),
         title: Text(
           routeArgs['contact'].username,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            //color: Colors.black,
           ),
         ),
         actions: <Widget>[
@@ -259,15 +258,12 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                //color: Colors.grey[400],
                 borderRadius: BorderRadius.circular(30),
               ),
               child: TextField(
                 decoration: InputDecoration.collapsed(
                   hintText: "Aa",
-                  //hintStyle: TextStyle(color: Colors.black),
                 ),
-                //style: TextStyle(color: Colors.black),
                 controller: textController,
               ),
             ),

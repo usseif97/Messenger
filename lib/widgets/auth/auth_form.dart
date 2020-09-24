@@ -1,6 +1,4 @@
 import 'package:chat_app/widgets/pickers/user_image_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:chat_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -78,7 +76,7 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     // Now have access to the provider
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    //final themeProvider = Provider.of<ThemeProvider>(context);
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;

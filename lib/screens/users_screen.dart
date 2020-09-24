@@ -15,22 +15,33 @@ class _UsersScreenState extends State<UsersScreen> {
   final _auth = FirebaseAuth.instance;
   dynamic _userImage;
   String userID = '';
+  bool _disposed = false;
 
   ThemeProvider themeProvider;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getData();
+  }
+
+  // Called when this object is removed from the tree permanently.
+  // The framework calls this method when this State object will never build again.
+  // After the framework calls dispose
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
   }
 
   void _getData() async {
     final FirebaseUser user = await _auth.currentUser();
     String uid = user.uid;
-    setState(() {
-      userID = uid;
-    });
+    if (!_disposed) {
+      setState(() {
+        userID = uid;
+      });
+    }
     print('userID: $userID');
     await Firestore.instance
         .collection('users')
@@ -40,9 +51,11 @@ class _UsersScreenState extends State<UsersScreen> {
         print('uid: $uid');
         if (result.data['id'] == uid && uid != null) {
           print(result.data);
-          setState(() {
-            _userImage = result.data['userImage'];
-          });
+          if (!_disposed) {
+            setState(() {
+              _userImage = result.data['userImage'];
+            });
+          }
         }
         //print(result.data);
       });
@@ -71,18 +84,13 @@ class _UsersScreenState extends State<UsersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
       appBar: AppBar(
-        //backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-            //color: Colors.black,
-            ),
+        iconTheme: IconThemeData(),
         title: Text(
           'Chats',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 35,
-            //color: Colors.black,
           ),
         ),
         actions: <Widget>[

@@ -29,7 +29,7 @@ class _TabScreenState extends State<TabScreen> {
         onTap: onTappedBar,
         type: BottomNavigationBarType.fixed,
         fixedColor: Colors.blue,
-        backgroundColor: Colors.grey[200],
+        //backgroundColor: Colors.grey[200],
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),

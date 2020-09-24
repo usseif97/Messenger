@@ -50,6 +50,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
         userID = uid;
       });
     }
+
     print('userID: $userID');
     await Firestore.instance
         .collection('users')
@@ -59,9 +60,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
         print('uid: $uid');
         if (result.data['id'] == uid && uid != null) {
           print(result.data);
-          setState(() {
+          /*setState(() {
             currentUserInfo = result.data;
-          });
+          });*/
           if (!_disposed) {
             setState(() {
               _userImage = result.data['userImage'];
@@ -74,13 +75,13 @@ class _ContactsScreenState extends State<ContactsScreen> {
   }
 
   void _logOut() async {
-    final FirebaseUser user = await _auth.currentUser();
-    String uid = user.uid;
-    print('uid: $uid');
+    //final FirebaseUser user = await _auth.currentUser();
+    //String uid = user.uid;
+    print('uid: $userID');
     try {
       await Firestore.instance
           .collection('users')
-          .document(uid)
+          .document(userID)
           .updateData({'status': 'offline'});
       print('done');
     } catch (e) {
@@ -95,12 +96,13 @@ class _ContactsScreenState extends State<ContactsScreen> {
   void _contactsList() async {
     print('_mastersList Function');
 
-    final FirebaseUser user = await _auth.currentUser();
-    String uid = user.uid;
+    //final FirebaseUser user = await _auth.currentUser();
+    //String uid = user.uid;
 
-    setState(() {
-      contactsList = [];
-    });
+    /*setState(() {
+      finished = false;
+    });*/
+    finished = false;
 
     QuerySnapshot querySnapshot =
         await Firestore.instance.collection("contacts").getDocuments();
@@ -110,7 +112,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
     //print('listOfMasters.length: ${listOfMasters.length}');
 
     for (int i = 0; i < listOfMasters.length; i++) {
-      if (listOfMasters[i].documentID.toString() == uid) {
+      if (listOfMasters[i].documentID.toString() == userID) {
         Firestore.instance
             .collection("contacts")
             .document(listOfMasters[i].documentID.toString())
@@ -124,6 +126,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   void _createListofcontacts(QuerySnapshot snapshot) async {
     var docs = snapshot.documents;
+    setState(() {
+      contactsList.clear();
+    });
     for (var Doc in docs) {
       contactsList.add(ContactModel.fromFireStore(Doc));
     }
@@ -201,8 +206,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 border: Border.all(
-                    //color: Colors.grey[100],
-                    ),
+                  color: Colors.grey[300],
+                ),
                 borderRadius: BorderRadius.all(
                   Radius.circular(25),
                 ),
@@ -212,7 +217,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 decoration: InputDecoration(
                   prefix: Icon(
                     Icons.search,
-                    //color: Colors.black,
                   ),
                   hintText: 'Search',
                   //hintStyle: TextStyle(color: Colors.black),

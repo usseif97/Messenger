@@ -55,15 +55,18 @@ class Contacts extends StatelessWidget {
                   //color: Colors.black,
                 ),
               ),
-              subtitle: Text(
-                documents[i].chat,
-                //style: TextStyle(color: Colors.grey),
+              subtitle: Container(
+                width: 20,
+                child: Text(
+                  documents[i].chat,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ),
           onTap: () => selectContact(ctx, documents[i]),
         ),
-        Positioned(
+        /*Positioned(
           bottom: 8,
           left: 55,
           child: StreamBuilder(
@@ -84,12 +87,12 @@ class Contacts extends StatelessWidget {
                   ),
                 );
               }
-              final documents = streamSnapshot.data.documents;
+              final docs = streamSnapshot.data.documents;
               return Container(
                 width: 20,
                 height: 20,
                 decoration: BoxDecoration(
-                  color: documents[i]['status'] == 'offline'
+                  color: docs[i]['status'] == 'offline'
                       ? Colors.grey
                       : Color(0xFF66BB6A),
                   shape: BoxShape.circle,
@@ -98,7 +101,7 @@ class Contacts extends StatelessWidget {
               );
             },
           ),
-        ),
+        ),*/
       ],
     );
   }

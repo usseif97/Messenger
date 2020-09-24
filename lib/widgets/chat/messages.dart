@@ -19,6 +19,7 @@ class Messages extends StatelessWidget {
         ? Center(
             child: Text(
               'No Messages',
+              style: TextStyle(color: Colors.transparent),
               //style: TextStyle(color: Colors.black),
             ),
           )

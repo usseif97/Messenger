@@ -89,6 +89,47 @@ class _UsersState extends State<Users> {
         'chat': 'Say Hii',
         'date': DateTime.now().toString(),
       });
+
+      // Current User Chats to Friend
+      try {
+        await Firestore.instance
+            .collection('chat')
+            .document(widget.userid)
+            .setData({'exist': 'yes'});
+      } catch (error) {
+        print(error.toString());
+      }
+      try {
+        await Firestore.instance
+            .collection('chat')
+            .document(widget.userid)
+            .collection('friends')
+            .document(doc[index]['id'])
+            .setData({'exist': 'yes'});
+      } catch (error) {
+        print(error.toString());
+      }
+
+      // Friend chats Current User
+      try {
+        await Firestore.instance
+            .collection('chat')
+            .document(doc[index]['id'])
+            .setData({'exist': 'yes'});
+      } catch (error) {
+        print(error.toString());
+      }
+      try {
+        await Firestore.instance
+            .collection('chat')
+            .document(doc[index]['id'])
+            .collection('friends')
+            .document(widget.userid)
+            .setData({'exist': 'yes'});
+      } catch (error) {
+        print(error.toString());
+      }
+
       _getFriends();
     } catch (error) {
       print(error.toString());
@@ -110,9 +151,10 @@ class _UsersState extends State<Users> {
     final FirebaseUser user = await _auth.currentUser();
     String uid = user.uid;
 
-    setState(() {
+    /*setState(() {
       finished = false;
-    });
+    });*/
+    finished = false;
 
     await Firestore.instance
         .collection('users')
@@ -213,7 +255,7 @@ class _UsersState extends State<Users> {
                         addFriend(i, documents);
                       },
                     )
-              : Icon(Icons.explicit)),
+              : Icon(Icons.timer_3)),
     );
   }
 }

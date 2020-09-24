@@ -54,6 +54,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _sendMessage(String message) async {
     print('send Message');
+    setState(() {
+      finished = false;
+      chatList = [];
+    });
+
     final FirebaseUser user = await _auth.currentUser();
     String uid = user.uid;
 
@@ -62,24 +67,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
     // Current User send to Friend
-    try {
-      await Firestore.instance
-          .collection('chat')
-          .document(uid)
-          .setData({'exist': 'yes'});
-    } catch (error) {
-      print(error.toString());
-    }
-    try {
-      await Firestore.instance
-          .collection('chat')
-          .document(uid)
-          .collection('friends')
-          .document(routeArgs['contact'].id)
-          .setData({'exist': 'yes'});
-    } catch (error) {
-      print(error.toString());
-    }
     try {
       await Firestore.instance
           .collection('chat')
@@ -97,24 +84,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
     // Friend recieve from Current User
-    try {
-      await Firestore.instance
-          .collection('chat')
-          .document(routeArgs['contact'].id)
-          .setData({'exist': 'yes'});
-    } catch (error) {
-      print(error.toString());
-    }
-    try {
-      await Firestore.instance
-          .collection('chat')
-          .document(routeArgs['contact'].id)
-          .collection('friends')
-          .document(uid)
-          .setData({'exist': 'yes'});
-    } catch (error) {
-      print(error.toString());
-    }
     try {
       await Firestore.instance
           .collection('chat')
@@ -171,10 +140,12 @@ class _ChatScreenState extends State<ChatScreen> {
     final FirebaseUser user = await _auth.currentUser();
     String uid = user.uid;
 
-    setState(() {
+    /*setState(() {
       finished = false;
-      chatList = [];
-    });
+      chatList.clear();
+    });*/
+    /*finished = false;
+    chatList.clear();*/
 
     QuerySnapshot querySnapshot =
         await Firestore.instance.collection("chat").getDocuments();
@@ -183,13 +154,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
     for (int i = 0; i < listOfMasters.length; i++) {
       if (listOfMasters[i].documentID.toString() == uid) {
-        /*Firestore.instance
-            .collection("chat")
-            .document(listOfMasters[i].documentID.toString())
-            .collection("friends")
-            .snapshots()
-            .listen(_createListofchats);*/
-
         QuerySnapshot querySnapshotOfFriends = await Firestore.instance
             .collection("chat")
             .document(uid)

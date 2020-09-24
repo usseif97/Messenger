@@ -1,4 +1,3 @@
-import 'package:chat_app/widgets/contacts/contacts.dart';
 import 'package:chat_app/widgets/contacts/users.dart';
 import 'package:chat_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -51,13 +50,13 @@ class _UsersScreenState extends State<UsersScreen> {
   }
 
   void _logOut() async {
-    final FirebaseUser user = await _auth.currentUser();
-    String uid = user.uid;
-    print('uid: $uid');
+    //final FirebaseUser user = await _auth.currentUser();
+    //String uid = user.uid;
+    print('uid: $userID');
     try {
       await Firestore.instance
           .collection('users')
-          .document(uid)
+          .document(userID)
           .updateData({'status': 'offline'});
       print('done');
     } catch (e) {
